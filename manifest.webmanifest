@@ -1,0 +1,16 @@
+{
+  "name": "Finanzas NI",
+  "short_name": "Finanzas NI",
+  "description": "Control de gastos e ingresos en córdobas y dólares. Privado y offline.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070c18",
+  "theme_color": "#070c18",
+  "icons": [
+    { "src": "icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
