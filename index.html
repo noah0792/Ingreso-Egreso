@@ -1,6 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<html lang="es"><head><style>* { -webkit-text-size-adjust: 86.33333333333333% !important; }</style><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data: blob:; manifest-src 'self'; worker-src 'self'; connect-src https://open.er-api.com; base-uri 'none'; form-action 'none'">
@@ -92,6 +111,27 @@ footer{text-align:center;color:var(--mu);font-size:12px;line-height:1.7;margin-t
 .toast{position:fixed;left:50%;bottom:calc(var(--sb) + 22px);transform:translate(-50%,30px);background:#101a33;border:1px solid var(--line);padding:12px 18px;border-radius:99px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---------- Exportar mis registros (nuevo) ---------- */
+.exp-head{display:flex;align-items:flex-start;gap:10px}
+.exp-head h3{margin:0;font-size:16px}
+.exp-head p{margin:4px 0 0;color:var(--mu);font-size:13px;line-height:1.5}
+.exp-badge{flex:none;background:#0f2a24;color:var(--gr);border:1px solid #1e4d3d;border-radius:99px;padding:6px 10px;font-size:11.5px;font-weight:800;letter-spacing:.3px}
+.exp-preview{background:#0a1226;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.6;margin-top:12px}
+.exp-preview b{color:var(--tx)}
+.exp-preview small{color:var(--mu)}
+.exp-dest{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.exp-dest button{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:13px 10px;text-align:left;min-height:64px}
+.exp-dest button:active{transform:scale(.98)}
+.exp-dest b{display:block;font-size:14px}
+.exp-dest small{display:block;color:var(--mu);font-size:11.5px;line-height:1.4;margin-top:3px}
+.exp-dest .drive{border-color:#2b4a7c}.exp-dest .mail{border-color:#5b2434}.exp-dest .icloud{border-color:#33426a}
+.exp-share{width:100%;margin-top:12px;background:var(--gr);color:#06101f;font-weight:800;font-size:15.5px;border-radius:16px;padding:15px;min-height:52px}
+.exp-hint{background:#0a1226;border:1px dashed #5b6f9c;border-radius:14px;padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--mu);margin-top:12px}
+.exp-hint b{color:var(--tx)}
+.exp-last{color:var(--mu);font-size:12px;margin-top:10px}
+.toast.err{border-color:#5b2434;color:#fda4af}
+@media (max-width:360px){.exp-dest{grid-template-columns:1fr}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -103,7 +143,7 @@ footer{text-align:center;color:var(--mu);font-size:12px;line-height:1.7;margin-t
   <div class="err" id="pinErr" role="alert"></div>
   <button class="save" id="pinOk" style="margin-top:6px;--ac:var(--bl)">Desbloquear</button>
 </div></div>
-<main id="app" hidden></main>
+<main id="app"><div><header><div><h1>Finanzas NI</h1><small>lunes, 16 de noviembre</small></div><span class="sp"></span><button class="ib" id="eye" aria-label="Ocultar o mostrar saldos"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button><button class="ib" aria-label="Crear PIN"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button></header><section class="hero"><small>Saldo total en córdobas</small><div class="big sens">C$ 0.00</div><span class="pill sens">$ 0.00 USD</span><span class="pill">3 cuentas</span><div class="stats"><div class="stat up"><span>Ingresos del mes</span><b class="sens">C$ 0.00</b></div><div class="stat dn"><span>Gastos del mes</span><b class="sens">C$ 0.00</b></div></div></section><div class="card rate"><div class="info"><b>1 USD = C$ 36.6243</b><small>BCN oficial (respaldo) • 2026-11-16</small></div><button class="btn">Editar</button><button class="btn" aria-label="Actualizar tasa en línea">↻</button></div></div><div class="sec"><h2>Mis bancos y billeteras</h2><button class="lnk">Gestionar</button></div><div class="wal"><button class="on"><div class="h"><span class="ch" style="background:#16a34a">EF$</span>Efectivo</div><div class="a sens">C$ 0.00</div><div class="u sens">$ 0.00</div></button><button class=""><div class="h"><span class="ch" style="background:#0b3a9c">BAN</span>Banpro C$</div><div class="a sens">C$ 0.00</div><div class="u sens">$ 0.00</div></button><button class=""><div class="h"><span class="ch" style="background:#c8102e">BAC</span>BAC C$</div><div class="a sens">C$ 0.00</div><div class="u sens">$ 0.00</div></button></div><div class="sec"><h2>Nuevo movimiento</h2></div><section class="card"><div class="tabs" role="tablist"><button type="button" role="tab" data-t="gasto" class="on" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg> Gastos</button><button type="button" role="tab" data-t="ingreso" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"></path></svg> Ingresos</button><button type="button" role="tab" data-t="transf" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"></path></svg> Transferir</button></div><label for="fecha">Fecha y hora</label><input type="datetime-local" id="fecha" value="2026-11-16T09:11"><label for="monto">Importe</label><div class="imp"><input id="monto" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off" maxlength="14" aria-label="Importe"><div class="seg"><button type="button" data-m="NIO" aria-label="Córdobas" class="on">C$</button><button type="button" data-m="USD" aria-label="Dólares">US$</button></div></div><div class="chips"><button type="button" class="chip">+50</button><button type="button" class="chip">+100</button><button type="button" class="chip">+500</button><button type="button" class="chip">+1,000</button></div><div class="eq"><span>C$ 0.00</span><span>≈ $ 0.00</span></div><button type="button" class="auth" aria-pressed="false"><span class="sw"></span><span><b>No restar del saldo</b><small>El gasto se suma a tus gastos y el saldo no cambia. Toca para autorizar.</small></span></button><div class="note" hidden="">Los ingresos siempre se suman al saldo de la cuenta.</div><div><label for="desc">Descripción</label><input id="desc" maxlength="60" placeholder="Ej: Supermercado La Colonia"><label for="cat">Categoría</label><select id="cat"><option value="">Selecciona categoría</option>[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement],[object HTMLOptionElement]</select></div><label for="wsel">Cuenta o banco</label><select id="wsel"><option value="w1">Efectivo — EF$</option><option value="w2">Banpro C$ — BAN</option><option value="w3">BAC C$ — BAC</option></select><div hidden=""><label for="wdest">Destino</label><select id="wdest"><option value="w1">Efectivo — EF$</option><option value="w2">Banpro C$ — BAN</option><option value="w3">BAC C$ — BAC</option></select></div><label for="nota">Nota (opcional)</label><input id="nota" maxlength="120" placeholder="Detalle extra"><button type="button" class="save">Guardar movimiento</button></section><div></div><div><div class="sec"><h2>Histórico por mes</h2></div><div class="card" style="padding:4px 16px"><div class="empty">Aquí verás el resumen de cada mes cuando registres movimientos.</div></div>false</div><div class="sec"><h2>Movimientos recientes</h2><button class="lnk">Limpiar lista</button></div><div class="chips" style="margin:0 0 10px"><button class="chip on" data-f="all">Todo</button><button class="chip" data-f="gasto">Gastos</button><button class="chip" data-f="ingreso">Ingresos</button><button class="chip" data-f="transf">Transferir</button></div><div><div class="empty">Aún no hay movimientos.<br>Registra tu primer gasto o ingreso arriba.</div></div><section class="card" id="exportar"><div class="exp-head"><div><h3>Exportar mis registros</h3><p>Elige periodo y formato, luego el destino. El archivo se crea en tu teléfono: tú decides si va a Drive, Correo o iCloud. Nada se sube solo.</p></div><span class="exp-badge">NUEVO</span></div><label for="expPeriodo">Periodo</label><select aria-label="Periodo a exportar" id="expPeriodo"><option value="">Todo el histórico</option></select><label>Formato</label><div class="seg" role="group" aria-label="Formato de exportación"><button type="button" data-fmt="xlsx" class="on">Excel</button><button type="button" data-fmt="csv" class="">CSV</button><button type="button" data-fmt="pdf" class="">PDF</button></div><div class="exp-preview"><div><b>Se exportarán 0 movimientos • 3 cuentas</b><div><small>Periodo: Todo el histórico • Formato: Excel (.xlsx) • Incluye Resumen, Cuentas, Categorías y Movimientos</small></div></div><div class="exp-last" id="expLast"></div></div><button type="button" class="exp-share">↗  Compartir archivo…</button><div class="exp-dest"><button type="button" class="drive"><b>☁️  Google Drive</b><small>Compartir → Drive o abrir drive.google.com</small></button><button type="button" class="mail"><b>✉️  Correo</b><small>Compartir → Mail / Gmail con archivo adjunto</small></button><button type="button" class="icloud"><b>🍎  iCloud</b><small>iPhone: Compartir → Guardar en Archivos → iCloud Drive</small></button><button type="button"><b>⬇️  Solo descargar</b><small>Guardar en Descargas / Archivos</small></button></div><div class="exp-hint"><b>¿Cómo llega a cada lugar?  </b>Toca un destino y elige en el menú del sistema. Si no ves Drive / Correo / iCloud, pulsa «¿Cómo se hace?» y te guía paso a paso. En PC, se descarga el archivo y luego lo subes a drive.google.com o icloud.com/iclouddrive.</div><div class="two"><button type="button" class="btn">¿Cómo se hace? Drive</button><button type="button" class="btn">¿Cómo se hace? iCloud</button></div><button type="button" class="btn full">¿Cómo se hace? Correo</button></section><section class="card bk" style="margin-top:22px"><h3>Respaldo y seguridad (para restaurar la app)</h3><p>El archivo de respaldo contiene todos tus datos sin cifrar: guárdalo solo en lugares de confianza.</p><div class="two"><button class="btn">Exportar respaldo</button><button class="btn">Importar respaldo</button></div><input type="file" accept="application/json,.json" hidden=""><button class="btn full">Crear PIN de bloqueo</button><button class="btn danger full">Borrar todo</button></section><footer>Hecho para Nicaragua 🇳🇮<br>Tus datos se guardan solo en este dispositivo.</footer></main>
 <div class="ov" id="ov"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <div class="toast" id="toast" role="status"></div>
 <script>
@@ -126,7 +166,7 @@ function ico(n,s=18){const d=new DOMParser().parseFromString('<svg xmlns="http:/
 
 /* ---------- datos ---------- */
 const def=()=>({v:2,rate:36.6243,rateDate:nowL().slice(0,10),rateSrc:"BCN oficial (respaldo)",sel:"w1",
- wallets:[["w1","Efectivo","EF$"],["w2","Banpro C$","BAN"],["w3","BAC C$","BAC"]].map((w,i)=>({id:w[0],name:w[1],code:w[2],cur:"NIO",c:COL[i],bal:0})),mv:[]});
+ wallets:[["w1","Efectivo","EF$"],["w2","Banpro C$","BAN"],["w3","BAC C$","BAC"]].map((w,i)=>({id:w[0],name:w[1],code:w[2],cur:"NIO",c:COL[i],bal:0})),mv:[],arch:[]});
 function clean(d){ // valida y sanea cualquier dato que entre (almacenamiento o archivo)
   if(!d||typeof d!=="object"||!Array.isArray(d.wallets)||!Array.isArray(d.mv))return null;
   let rate=num(d.rate,0);if(!(rate>1&&rate<1000))rate=36.6243;
@@ -134,17 +174,17 @@ function clean(d){ // valida y sanea cualquier dato que entre (almacenamiento o 
   d.wallets.slice(0,30).forEach((w,i)=>{if(!w||typeof w!=="object")return;let id=/^[\w-]{1,40}$/.test(w.id)?w.id:"w"+i+uid();if(ids.has(id))return;ids.add(id);
     const name=str(w.name,30)||"Cuenta";W.push({id,name,code:(str(w.code,4)||name.slice(0,3)).toUpperCase(),cur:w.cur==="USD"?"USD":"NIO",c:COL.includes(w.c)?w.c:COL[i%COL.length],bal:r2(Math.max(-1e12,Math.min(1e12,num(w.bal,0))))})});
   if(!W.length)return null;
-  const by=Object.fromEntries(W.map(w=>[w.id,w])),seen=new Set(),M=[];
-  d.mv.slice(0,5000).forEach(m=>{if(!m||typeof m!=="object"||!TIPOS.includes(m.tipo))return;
-    const monto=r2(num(m.monto,0));if(!(monto>0&&monto<=MAX))return;
-    const src=by[m.w];if(!src)return;let id=/^[\w-]{1,40}$/.test(m.id)?m.id:uid();if(seen.has(id))id=uid();seen.add(id);
+  const by=Object.fromEntries(W.map(w=>[w.id,w])),seen=new Set(),cv=m=>{if(!m||typeof m!=="object"||!TIPOS.includes(m.tipo))return null;
+    const monto=r2(num(m.monto,0));if(!(monto>0&&monto<=MAX))return null;
+    const src=by[m.w];if(!src)return null;let id=/^[\w-]{1,40}$/.test(m.id)?m.id:uid();if(seen.has(id))id=uid();seen.add(id);
     const cur=m.cur==="USD"?"USD":"NIO",o={id,tipo:m.tipo,monto,cur,w:src.id,nio:r2(num(m.nio,conv(monto,cur,"NIO",rate))),
       fecha:/^\d{4}-\d\d-\d\dT\d\d:\d\d/.test(m.fecha)?String(m.fecha).slice(0,16):nowL(),nota:str(m.nota,120),ap:true,
       amtW:r2(num(m.amtW,conv(monto,cur,src.cur,rate)))};
-    if(m.tipo==="transf"){const dd=by[m.dest];if(!dd||dd.id===src.id)return;o.dest=dd.id;o.amtD=r2(num(m.amtD,conv(monto,cur,dd.cur,rate)))}
+    if(m.tipo==="transf"){const dd=by[m.dest];if(!dd||dd.id===src.id)return null;o.dest=dd.id;o.amtD=r2(num(m.amtD,conv(monto,cur,dd.cur,rate)))}
     else{o.desc=str(m.desc,60);o.cat=str(m.cat,20);if(m.tipo==="gasto")o.ap=m.ap!==false}
-    M.push(o)});
-  return{v:2,rate,rateDate:str(d.rateDate,10),rateSrc:str(d.rateSrc,40)||"Manual",sel:by[d.sel]?d.sel:W[0].id,wallets:W,mv:M};
+    return o},
+    M=d.mv.slice(0,5000).map(cv).filter(Boolean),A=Array.isArray(d.arch)?d.arch.slice(0,10000).map(cv).filter(Boolean):[];
+  return{v:2,rate,rateDate:str(d.rateDate,10),rateSrc:str(d.rateSrc,40)||"Manual",sel:by[d.sel]?d.sel:W[0].id,wallets:W,mv:M,arch:A};
 }
 let st=def();
 function load(){try{const a=localStorage.getItem(KEY)||localStorage.getItem(OLD);const c=a&&clean(JSON.parse(a));if(c)st=c}catch(e){}}
@@ -158,7 +198,7 @@ function effect(m,s){ // s=+1 aplicar, -1 revertir. Un gasto solo toca el saldo 
 }
 
 /* ---------- UI utilidades ---------- */
-let tt;function toast(m,i){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2200)}
+let tt;function toast(m,i){const t=$("#toast");t.textContent=m;t.classList.toggle("err",i==="x");t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2600)}
 function sheet(...k){const s=$("#sheet");s.replaceChildren(...k);$("#ov").classList.add("show");const b=s.querySelector("input,button");b&&b.focus()}
 function closeSheet(){$("#ov").classList.remove("show")}
 function ask(msg,fn,ok="Confirmar"){sheet(h("h3",0,"Confirmar acción"),h("p",0,msg),h("div",{class:"two"},h("button",{class:"btn",onclick:closeSheet},"Cancelar"),h("button",{class:"btn danger",onclick:()=>{closeSheet();fn()}},ok)))}
@@ -205,7 +245,7 @@ function guardar(){
   const m={id:uid(),tipo:t,monto:a,cur:S.cur,nio:r2(conv(a,S.cur,"NIO",st.rate)),w:w.id,fecha:/^\d{4}-\d\d-\d\dT\d\d:\d\d/.test(fe)?fe:nowL(),nota:str(F.nota.value,120),ap:true,amtW:r2(conv(a,S.cur,w.cur,st.rate))};
   if(t==="transf"){const d=wal(F.wdest.value);if(!d||d.id===w.id)return toast("Elige otro destino","x");m.dest=d.id;m.amtD=r2(conv(a,S.cur,d.cur,st.rate))}
   else{m.desc=str(F.desc.value,60);m.cat=CATS[t].includes(F.cat.value)?F.cat.value:"Otros";if(t==="gasto")m.ap=S.auth}
-  effect(m,1);st.mv.unshift(m);if(st.mv.length>5000)st.mv.length=5000;persist();
+  effect(m,1);st.mv.unshift(m);if(st.mv.length>5000)st.arch=st.mv.splice(5000).concat(st.arch||[]).slice(0,10000);persist();
   F.monto.value=F.desc.value=F.nota.value="";F.cat.value="";F.fecha.value=nowL();S.auth=false;authTxt();eq();render();
   toast(t==="gasto"&&!m.ap?"Gasto sumado (saldo sin cambios)":"Movimiento guardado")}
 
@@ -213,13 +253,13 @@ function guardar(){
 const mes=()=>nowL().slice(0,7);
 function stats(){let i=0,g=0,pend=0;const cat={};st.mv.forEach(m=>{if(m.fecha.slice(0,7)!==mes())return;
   if(m.tipo==="ingreso")i+=m.nio;else if(m.tipo==="gasto"){g+=m.nio;cat[m.cat||"Otros"]=(cat[m.cat||"Otros"]||0)+m.nio;if(!m.ap)pend+=m.nio}});return{i,g,pend,cat}}
-let topEl,walEl,catEl,listEl;
+let topEl,walEl,catEl,listEl,histEl,exportEl;
 function render(){
-  if(!formEl){const a=$("#app");topEl=h("div");walEl=h("div",{class:"wal"});catEl=h("div");listEl=h("div");
+  if(!formEl){const a=$("#app");topEl=h("div");walEl=h("div",{class:"wal"});catEl=h("div");histEl=h("div");listEl=h("div");
     a.append(topEl,h("div",{class:"sec"},h("h2",0,"Mis bancos y billeteras"),h("button",{class:"lnk",onclick:walletSheet},"Gestionar")),walEl,
-      h("div",{class:"sec"},h("h2",0,"Nuevo movimiento")),buildForm(),catEl,
+      h("div",{class:"sec"},h("h2",0,"Nuevo movimiento")),buildForm(),catEl,histEl,
       h("div",{class:"sec"},h("h2",0,"Movimientos recientes"),h("button",{class:"lnk",onclick:limpiar},"Limpiar lista")),
-      h("div",{class:"chips",style:"margin:0 0 10px"},[["all","Todo"],...TIPOS.map(t=>[t,LBL[t]])].map(([k,l])=>h("button",{class:"chip","data-f":k,onclick:()=>{S.filtro=k;renderList()}},l))),listEl,backup(),
+      h("div",{class:"chips",style:"margin:0 0 10px"},[["all","Todo"],...TIPOS.map(t=>[t,LBL[t]])].map(([k,l])=>h("button",{class:"chip","data-f":k,onclick:()=>{S.filtro=k;renderList()}},l))),listEl,(exportEl=exportSection()),backup(),
       h("footer",0,"Hecho para Nicaragua 🇳🇮",h("br"),"Tus datos se guardan solo en este dispositivo."))}
   const tot=st.wallets.reduce((s,w)=>s+conv(w.bal,w.cur,"NIO",st.rate),0),s=stats();
   topEl.replaceChildren(
@@ -232,9 +272,9 @@ function render(){
         h("div",{class:"stat dn"},h("span",0,"Gastos del mes"),h("b",{class:"sens"},"C$ "+fmt(s.g)),s.pend>0&&h("i",{class:"sens"},"C$ "+fmt(s.pend)+" sin restar del saldo")))),
     h("div",{class:"card rate"},h("div",{class:"info"},h("b",0,"1 USD = C$ "+st.rate.toFixed(4)),h("small",0,st.rateSrc+" • "+st.rateDate)),
       h("button",{class:"btn",onclick:rateSheet},"Editar"),h("button",{class:"btn","aria-label":"Actualizar tasa en línea",onclick:rateOnline},"↻")));
-  renderWallets();renderCats(s);renderList();
+  renderWallets();renderCats(s);renderHist();renderList();
   const keep=[F.wsel.value,F.wdest.value];[F.wsel,F.wdest].forEach(x=>x.replaceChildren(...st.wallets.map(w=>h("option",{value:w.id},w.name+" — "+w.code))));
-  F.wsel.value=wal(keep[0])?keep[0]:st.sel;F.wdest.value=wal(keep[1])&&keep[1]!==F.wsel.value?keep[1]:(st.wallets.find(w=>w.id!==F.wsel.value)||st.wallets[0]).id;authTxt();eq()}
+  F.wsel.value=wal(keep[0])?keep[0]:st.sel;F.wdest.value=wal(keep[1])&&keep[1]!==F.wsel.value?keep[1]:(st.wallets.find(w=>w.id!==F.wsel.value)||st.wallets[0]).id;authTxt();eq();updateExportPreview()}
 function renderWallets(){walEl.replaceChildren(...st.wallets.map(w=>h("button",{class:w.id===st.sel?"on":"",onclick:()=>{st.sel=w.id;persist();F.wsel.value=w.id;renderWallets();authTxt()}},
   h("div",{class:"h"},h("span",{class:"ch",style:"background:"+w.c},w.code),w.name),h("div",{class:"a sens"},(w.cur==="USD"?"US$ ":"C$ ")+fmt(w.bal)),
   h("div",{class:"u sens"},w.cur==="USD"?"C$ "+fmt(w.bal*st.rate):"$ "+fmt(w.bal/st.rate)))))}
@@ -258,7 +298,7 @@ function toggleAp(id){const m=st.mv.find(x=>x.id===id);if(!m)return;
     ()=>{m.ap=!m.ap;adj(m.w,m.ap?-m.amtW:m.amtW);persist();render();toast(m.ap?"Saldo actualizado":"Saldo sin cambios")},m.ap?"Devolver":"Restar")}
 function borrar(id){const i=st.mv.findIndex(x=>x.id===id);if(i<0)return;
   ask("¿Eliminar este movimiento? Su efecto en el saldo se revertirá.",()=>{const m=st.mv[i];effect(m,-1);st.mv.splice(i,1);persist();render();toast("Movimiento eliminado")},"Eliminar")}
-function limpiar(){if(st.mv.length)ask("¿Limpiar la lista de movimientos? Los saldos no cambian.",()=>{st.mv=[];persist();render()},"Limpiar")}
+function limpiar(){if(!st.mv.length)return toast("La lista ya está vacía","x");ask("¿Limpiar la lista de movimientos? Los saldos no cambian y los movimientos se conservan en el histórico por mes.",()=>{st.arch=st.mv.concat(st.arch||[]).slice(0,10000);st.mv=[];persist();render();toast("Lista limpiada, histórico conservado")},"Limpiar")}
 
 /* ---------- tasa y cuentas ---------- */
 function setRate(r,src){st.rate=r;st.rateSrc=src;st.rateDate=nowL().slice(0,10);persist();render()}
@@ -277,17 +317,196 @@ function walletSheet(){const n=h("input",{maxlength:"30",placeholder:"Nombre (Ej
     h("button",{class:"save",style:"--ac:var(--bl)",onclick:()=>{const nm=str(n.value,30);if(!nm)return toast("Escribe un nombre","x");if(st.wallets.length>=30)return toast("Máximo 30 cuentas","x");
       st.wallets.push({id:"w"+uid(),name:nm,code:nm.slice(0,3).toUpperCase(),cur:c.value==="USD"?"USD":"NIO",c:COL[st.wallets.length%COL.length],bal:0});persist();closeSheet();render();toast("Cuenta agregada")}},"Agregar"))}
 
+/* ---------- histórico mensual y exportación ---------- */
+const allMv=()=>st.mv.concat(st.arch||[]);
+const mesTxt=k=>{const t=new Date(k+"-01T12:00:00").toLocaleDateString("es-NI",{month:"long",year:"numeric"});return t.charAt(0).toUpperCase()+t.slice(1)};
+function histData(){const H={};allMv().forEach(m=>{const k=m.fecha.slice(0,7),o=H[k]||(H[k]={k,i:0,g:0,pend:0,n:0,cat:{}});o.n++;
+  if(m.tipo==="ingreso")o.i+=m.nio;else if(m.tipo==="gasto"){o.g+=m.nio;const c=m.cat||"Otros";o.cat[c]=(o.cat[c]||0)+m.nio;if(!m.ap)o.pend+=m.nio}});
+  return Object.values(H).sort((a,b)=>a.k<b.k?1:-1)}
+function renderHist(){const H=histData();
+  histEl.replaceChildren(h("div",{class:"sec"},h("h2",0,"Histórico por mes")),
+    h("div",{class:"card",style:"padding:4px 16px"},H.length?H.map(o=>h("button",{type:"button",class:"mv","aria-label":"Ver "+mesTxt(o.k),style:"width:100%;text-align:left",onclick:()=>mesSheet(o.k)},
+      h("div",{class:"t"},h("b",0,mesTxt(o.k)),h("small",0,o.n+(o.n===1?" movimiento":" movimientos"))),
+      h("div",{class:"m sens"},h("span",{style:"color:var(--gr);display:block"},"+ C$ "+fmt(o.i)),h("span",{style:"color:var(--rd);display:block"},"− C$ "+fmt(o.g)))))
+      :h("div",{class:"empty"},"Aquí verás el resumen de cada mes cuando registres movimientos.")),
+    H.length>0&&h("button",{type:"button",class:"btn full",onclick:()=>{const el=document.getElementById("exportar");el&&el.scrollIntoView({behavior:"smooth",block:"start"})}}, "Exportar registros  →  Drive / Correo / iCloud"))}
+function mesSheet(k){const o=histData().find(x=>x.k===k);if(!o)return;const cats=Object.keys(o.cat).sort((a,b)=>o.cat[b]-o.cat[a]),bal=o.i-o.g;
+  sheet(h("h3",0,mesTxt(k)),
+    h("div",{class:"stats"},h("div",{class:"stat up"},h("span",0,"Ingresos"),h("b",0,"C$ "+fmt(o.i))),h("div",{class:"stat dn"},h("span",0,"Gastos"),h("b",0,"C$ "+fmt(o.g)))),
+    h("p",{style:"margin-top:12px"},"Balance del mes: "+(bal<0?"−":"")+"C$ "+fmt(Math.abs(bal))+" • "+o.n+" movimientos"),
+    cats.length>0&&h("div",0,h("label",0,"Gastos por categoría"),cats.map((c,i)=>{const p=o.g?o.cat[c]/o.g*100:0;
+      return h("div",{class:"bar"},h("div",{class:"r"},h("span",0,c),h("b",0,"C$ "+Math.round(o.cat[c]).toLocaleString("en-US")+" ",h("small",0,Math.round(p)+"%"))),h("div",{class:"tr"},h("div",{class:"fi",style:"width:"+p.toFixed(1)+"%;background:"+COL[i%COL.length]})))})),
+    h("div",{class:"two"},h("button",{class:"btn",onclick:()=>exportXlsx(k)},"Excel (.xlsx)"),h("button",{class:"btn",onclick:()=>exportCsv(k)},"CSV")),
+    h("p",{style:"margin-top:12px;font-size:12.5px"},"Tip: usa la sección «Exportar mis registros» abajo para enviar este mes directo a Drive, Correo o iCloud. Excel abre el .xlsx; Sheets y Numbers abren .xlsx y .csv."),
+    h("button",{class:"btn full",onclick:closeSheet},"Cerrar"))}
+const TL={gasto:"Gasto",ingreso:"Ingreso",transf:"Transferencia"};
+function movRows(k){const L=allMv().filter(m=>!k||m.fecha.slice(0,7)===k).sort((a,b)=>a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0);
+  return[["Fecha","Hora","Tipo","Descripción","Categoría","Cuenta","Cuenta destino","Moneda","Importe","Equivalente C$","Restado del saldo","Nota"],
+    ...L.map(m=>{const w=wal(m.w),d=m.dest&&wal(m.dest);return[m.fecha.slice(0,10),m.fecha.slice(11,16),TL[m.tipo],m.desc||"",m.cat||"",w?w.name:"",d?d.name:"",m.cur,m.monto,m.nio,m.tipo==="gasto"?(m.ap?"Sí":"No"):"",m.nota||""]})]}
+function resumenRows(k){const H=histData().filter(o=>!k||o.k===k).reverse();
+  return[["Mes","Ingresos C$","Gastos C$","Balance C$","Gastos sin restar del saldo C$","Movimientos"],...H.map(o=>[mesTxt(o.k),r2(o.i),r2(o.g),r2(o.i-o.g),r2(o.pend),o.n])]}
+function catRows(k){const R=[["Mes","Categoría","Gasto C$"]];histData().filter(o=>!k||o.k===k).reverse().forEach(o=>Object.keys(o.cat).sort((a,b)=>o.cat[b]-o.cat[a]).forEach(c=>R.push([mesTxt(o.k),c,r2(o.cat[c])])));return R}
+/* CSV */
+function csv(rows){return"\ufeff"+rows.map(r=>r.map(v=>{if(typeof v==="number")return String(v);let s=String(v);if(/^[=+\-@\t\r]/.test(s))s="'"+s;return/[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(",")).join("\r\n")}
+/* XLSX (archivo real, sin librerías: ZIP sin compresión + XML) */
+const crcT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc=b=>{let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=crcT[(c^b[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0};
+function zip(files){const te=new TextEncoder(),P=[],C=[];let off=0;const d=new Date(),dt=((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate(),tm=(d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1);
+  files.forEach(([n,s])=>{const nb=te.encode(n),db=te.encode(s),c=crc(db),L=new DataView(new ArrayBuffer(30));
+    L.setUint32(0,0x04034b50,true);L.setUint16(4,20,true);L.setUint16(6,0x0800,true);L.setUint16(10,tm,true);L.setUint16(12,dt,true);L.setUint32(14,c,true);L.setUint32(18,db.length,true);L.setUint32(22,db.length,true);L.setUint16(26,nb.length,true);
+    P.push(new Uint8Array(L.buffer),nb,db);
+    const H=new DataView(new ArrayBuffer(46));H.setUint32(0,0x02014b50,true);H.setUint16(4,20,true);H.setUint16(6,20,true);H.setUint16(8,0x0800,true);H.setUint16(12,tm,true);H.setUint16(14,dt,true);H.setUint32(16,c,true);H.setUint32(20,db.length,true);H.setUint32(24,db.length,true);H.setUint16(28,nb.length,true);H.setUint32(42,off,true);
+    C.push(new Uint8Array(H.buffer),nb);off+=30+nb.length+db.length});
+  const cs=C.reduce((s,x)=>s+x.length,0),E=new DataView(new ArrayBuffer(22));E.setUint32(0,0x06054b50,true);E.setUint16(8,files.length,true);E.setUint16(10,files.length,true);E.setUint32(12,cs,true);E.setUint32(16,off,true);
+  return new Blob([...P,...C,new Uint8Array(E.buffer)],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"})}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const colN=i=>{let s="";i++;while(i>0){const r=(i-1)%26;s=String.fromCharCode(65+r)+s;i=Math.floor((i-1)/26)}return s};
+function sheetXml(rows){const nc=Math.max(...rows.map(r=>r.length));
+  let x='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols><col min="1" max="'+nc+'" width="20" customWidth="1"/></cols><sheetData>';
+  rows.forEach((r,i)=>{x+='<row r="'+(i+1)+'">';r.forEach((v,j)=>{const ref=colN(j)+(i+1);
+    if(typeof v==="number")x+='<c r="'+ref+'"'+(Number.isInteger(v)?"":' s="2"')+'><v>'+v+'</v></c>';
+    else x+='<c r="'+ref+'" t="inlineStr"'+(i===0?' s="1"':"")+'><is><t xml:space="preserve">'+esc(v)+'</t></is></c>'});x+='</row>'});
+  return x+'</sheetData></worksheet>'}
+function xlsx(S){const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',R="http://schemas.openxmlformats.org/officeDocument/2006/relationships",N="http://schemas.openxmlformats.org/spreadsheetml/2006/main",PR="http://schemas.openxmlformats.org/package/2006/relationships";
+  const f=[["[Content_Types].xml",X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+S.map((s,i)=>'<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join("")+'</Types>'],
+    ["_rels/.rels",X+'<Relationships xmlns="'+PR+'"><Relationship Id="rId1" Type="'+R+'/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
+    ["xl/workbook.xml",X+'<workbook xmlns="'+N+'" xmlns:r="'+R+'"><sheets>'+S.map((s,i)=>'<sheet name="'+esc(s.n)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>').join("")+'</sheets></workbook>'],
+    ["xl/_rels/workbook.xml.rels",X+'<Relationships xmlns="'+PR+'">'+S.map((s,i)=>'<Relationship Id="rId'+(i+1)+'" Type="'+R+'/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>').join("")+'<Relationship Id="rId'+(S.length+1)+'" Type="'+R+'/styles" Target="styles.xml"/></Relationships>'],
+    ["xl/styles.xml",X+'<styleSheet xmlns="'+N+'"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="4" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'],
+    ...S.map((s,i)=>["xl/worksheets/sheet"+(i+1)+".xml",sheetXml(s.r)])];
+  return zip(f)}
+/* ---------- Exportar mis registros: Drive / Correo / iCloud ---------- */
+/* Cómo funciona (sin servidor y sin contraseñas): esta app es 100% local.
+   No puede subir directo a Drive / Gmail / iCloud porque eso exigiría
+   OAuth en un servidor. Lo correcto es: 1) generar el archivo en el
+   teléfono, 2) abrir el menú Compartir del sistema, 3) ahí eliges
+   Drive, Mail/Gmail o Guardar en Archivos > iCloud Drive. En iPhone
+   ese menú es el que ya trae Drive, Correo y iCloud instalados. */
+const EXP_KEY="fni_last_export";
+const expNombre=(k,ext)=>"finanzas-ni-"+(k||"historico")+"-"+new Date().toISOString().slice(0,10)+"."+ext;
+function cuentasRows(){return[["Cuenta","Código","Moneda","Saldo","Equivalente C$"],...st.wallets.map(w=>[w.name,w.code,w.cur,r2(w.bal),r2(conv(w.bal,w.cur,"NIO",st.rate))])]}
+function buildExport(k,fmt){
+  if(fmt==="csv")return{blob:new Blob([csv(movRows(k))],{type:"text/csv;charset=utf-8"}),nm:expNombre(k,"csv")};
+  return{blob:xlsx([{n:"Resumen",r:resumenRows(k)},{n:"Cuentas",r:cuentasRows()},{n:"Categorías",r:catRows(k)},{n:"Movimientos",r:movRows(k)}]),nm:expNombre(k,"xlsx")};
+}
+function descargarBlob(blob,nm){const u=URL.createObjectURL(blob),a=h("a",{href:u,download:nm,rel:"noopener"});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2500)}
+/* Devuelve true si se compartió, "cancelado" si el usuario cerró el menú, false si no hay Web Share */
+async function compartirArchivo(blob,nm){
+  try{
+    const f=new File([blob],nm,{type:blob.type||"application/octet-stream"});
+    if(navigator.share){
+      /* No depender solo de canShare: en iOS canShare() miente para .xlsx en algunos casos.
+         Intentamos compartir y si el sistema lo rechaza, caemos a descarga. */
+      try{await navigator.share({files:[f],title:nm,text:"Mis registros de Finanzas NI"});return true}
+      catch(e){if(e&&e.name==="AbortError")return"cancelado";return false}
+    }
+  }catch(_){}
+  return false;
+}
+function registrarExportacion(k,fmt,dest){try{localStorage.setItem(EXP_KEY,JSON.stringify({fecha:new Date().toISOString(),periodo:k||"todo",formato:fmt,destino:dest}))}catch(_){}updateExportPreview()}
+async function entregar(blob,nm){const s=await compartirArchivo(blob,nm);if(s===true)return;if(s==="cancelado")return;descargarBlob(blob,nm);toast("Descargando "+nm)}
+async function exportXlsx(k){const L=k?allMv().filter(m=>m.fecha.slice(0,7)===k):allMv();if(!L.length)return toast("No hay movimientos en ese periodo","x");const r=buildExport(k,"xlsx");await entregar(r.blob,r.nm);registrarExportacion(k,"xlsx","compartir")}
+async function exportCsv(k){const L=k?allMv().filter(m=>m.fecha.slice(0,7)===k):allMv();if(!L.length)return toast("No hay movimientos en ese periodo","x");const r=buildExport(k,"csv");await entregar(r.blob,r.nm);registrarExportacion(k,"csv","compartir")}
+/* PDF: se abre una vista limpia para imprimir / Guardar como PDF / Compartir a Drive.
+   No usa librerías: el navegador genera el PDF. */
+function exportPdf(k){
+  const rows=movRows(k),body=rows.slice(1),o=k?histData().find(x=>x.k===k):null;
+  const w=window.open("","_blank","noopener");
+  if(!w)return toast("Permite ventanas emergentes para generar el PDF","x");
+  const trs=body.map(r=>"<tr><td>"+esc(r[0])+"</td><td>"+esc(r[1])+"</td><td>"+esc(r[2])+"</td><td>"+esc(r[3])+"</td><td>"+esc(r[4])+"</td><td>"+esc(r[5])+"</td><td style='text-align:right'>"+esc(String(r[8]))+" "+esc(r[7])+"</td><td style='text-align:right'>"+esc(String(r[9]))+"</td></tr>").join("")||"<tr><td colspan='8'>Sin movimientos en este periodo.</td></tr>";
+  w.document.write("<!doctype html><html lang='es'><head><meta charset='utf-8'><title>Finanzas NI - "+esc(k||"Histórico")+"</title><style>body{font-family:system-ui,sans-serif;color:#111;padding:24px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid #ddd;padding:7px 6px;text-align:left}th{background:#f2f2f2}h1{font-size:20px;margin:0} p{color:#555;font-size:12px}</style></head><body><h1>Finanzas NI — "+esc(k?mesTxt(k):"Todo el histórico")+"</h1><p>Generado el "+esc(new Date().toLocaleString("es-NI"))+" • Tasa: 1 USD = C$ "+esc(String(st.rate))+(o?" • Ingresos C$ "+esc(String(fmt(o.i)))+" • Gastos C$ "+esc(String(fmt(o.g))):"")+"</p><table><thead><tr><th>Fecha</th><th>Hora</th><th>Tipo</th><th>Descripción</th><th>Categoría</th><th>Cuenta</th><th>Importe</th><th>Equiv. C$</th></tr></thead><tbody>"+trs+"</tbody></table><p>Archivo generado en tu dispositivo. Desde el menú del navegador elige Imprimir / Guardar como PDF o Compartir a Drive, Correo o iCloud.</p><script>window.onload=function(){setTimeout(function(){window.print()},250)}<\/script></body></html>");
+  w.document.close();
+}
+function guiaDestino(dest){
+  const pasos=dest==="drive"
+    ?["1. Pulsa «Compartir a Drive» abajo.","2. En el menú del sistema elige Google Drive.","3. Elige la carpeta y pulsa Guardar / Subir.","Si no aparece Drive: primero descarga el archivo y súbelo desde la app de Drive > + Nuevo > Subir."]
+    :dest==="mail"
+    ?["1. Pulsa «Enviar por correo» abajo.","2. En el menú elige Mail o Gmail.","3. El archivo ya va adjunto: solo escribe a quién y envía.","Si tu correo no aparece en Compartir: descarga el archivo y adjúntalo manual en tu app de correo."]
+    :["1. Pulsa «Guardar en iCloud» abajo.","2. En iPhone elige «Guardar en Archivos».","3. Elige iCloud Drive y la carpeta, pulsa Guardar.","Después lo verás en Archivos > iCloud Drive y en icloud.com/iclouddrive. En Android usa «Compartir a Drive» o «Descargar»."];
+  sheet(h("h3",0,dest==="drive"?"Cómo guardar en Google Drive":dest==="mail"?"Cómo enviar por correo":"Cómo guardar en iCloud"),
+    h("p",0,"Sin contraseñas ni cuentas conectadas: tu archivo nunca sale de tu teléfono hasta que tú eliges dónde enviarlo."),
+    h("div",{class:"exp-hint"},...pasos.map(p=>h("div",{style:"margin-bottom:6px"},p))),
+    h("button",{type:"button",class:"save",style:"--ac:var(--bl)",onclick:()=>{closeSheet();exportarRegistros(dest)}},"Entendido, exportar ahora"),
+    h("button",{type:"button",class:"btn full",onclick:closeSheet},"Cerrar"));
+}
+async function exportarRegistros(destino){
+  const k=EXP_UI.periodo?EXP_UI.periodo.value:"";
+  const fmt=EXP_UI.fmt||"xlsx";
+  const total=k?allMv().filter(m=>m.fecha.slice(0,7)===k).length:allMv().length;
+  if(!total)return toast("No hay movimientos en ese periodo","x");
+  if(fmt==="pdf"){exportPdf(k);registrarExportacion(k,"pdf",destino);return}
+  const r=buildExport(k,fmt);
+  if(destino==="download"){descargarBlob(r.blob,r.nm);toast("Descargando "+r.nm);registrarExportacion(k,fmt,"descarga");return}
+  const s=await compartirArchivo(r.blob,r.nm);
+  if(s===true){toast("Listo — elegiste dónde guardarlo");registrarExportacion(k,fmt,destino);return}
+  if(s==="cancelado")return;
+  /* Sin Web Share (PC / navegador viejo): descarga + abre el destino */
+  descargarBlob(r.blob,r.nm);
+  if(destino==="mail"){
+    toast("Descargado: adjúntalo en tu correo");
+    setTimeout(()=>{window.location.href="mailto:?subject="+encodeURIComponent("Mis registros Finanzas NI - "+(k?mesTxt(k):"histórico"))+"&body="+encodeURIComponent("Hola,\n\nTe comparto mis registros de Finanzas NI ("+(k?mesTxt(k):"todo el histórico")+") en "+fmt.toUpperCase()+".\n\nEl archivo se descargó como "+r.nm+". Adjúntalo antes de enviar (el correo no puede adjuntar archivos solo).\n\n— Finanzas NI")},650);
+  }else if(destino==="drive"){toast("Descargado: súbelo a Drive");setTimeout(()=>window.open("https://drive.google.com/drive/u/0/my-drive","_blank","noopener"),650)}
+  else if(destino==="icloud"){toast("Descargado: súbelo a iCloud");setTimeout(()=>window.open("https://www.icloud.com/iclouddrive","_blank","noopener"),650)}
+  else{toast("Descargando "+r.nm)}
+  registrarExportacion(k,fmt,destino);
+}
+let EXP_UI={fmt:"xlsx"};
+function updateExportPreview(){
+  if(!EXP_UI.prev)return;
+  const k=EXP_UI.periodo?EXP_UI.periodo.value:"";
+  const total=k?allMv().filter(m=>m.fecha.slice(0,7)===k).length:allMv().length;
+  const cuentas=st.wallets.length;
+  const fmtLabel=EXP_UI.fmt==="xlsx"?"Excel (.xlsx)":EXP_UI.fmt==="csv"?"CSV": "PDF (para imprimir)";
+  EXP_UI.prev.replaceChildren(
+    h("div",0,h("b",0,"Se exportarán "+total+" movimiento"+(total===1?"":"s")+" • "+cuentas+" cuenta"+(cuentas===1?"":"s")),
+      h("div",0,h("small",0,"Periodo: "+(k?mesTxt(k):"Todo el histórico")+" • Formato: "+fmtLabel+" • Incluye Resumen, Cuentas, Categorías y Movimientos"+(EXP_UI.fmt==="csv"?" (CSV: solo Movimientos)":"")))),
+    h("div",{class:"exp-last",id:"expLast"},""));
+  try{const last=JSON.parse(localStorage.getItem(EXP_KEY)||"null");if(last&&last.fecha)EXP_UI.prev.querySelector("#expLast").textContent="Última exportación: "+new Date(last.fecha).toLocaleString("es-NI")+" • "+(last.periodo==="todo"?"Todo":mesTxt(last.periodo))+" • "+String(last.formato||"").toUpperCase()+" → "+String(last.destino||"")}catch(_){}
+  /* Reconstruir opciones de periodo sin perder la selección */
+  if(EXP_UI.periodo){const cur=EXP_UI.periodo.value;const meses=histData().map(o=>o.k);const opts=[["","Todo el histórico"],...meses.map(m=>[m,mesTxt(m)+" ("+allMv().filter(x=>x.fecha.slice(0,7)===m).length+")"])];EXP_UI.periodo.replaceChildren(...opts.map(([v,l])=>h("option",{value:v},l)));EXP_UI.periodo.value=meses.includes(cur)?cur:""}
+}
+function setExpFmt(fmt,btn){
+  EXP_UI.fmt=fmt;
+  if(EXP_UI.seg)EXP_UI.seg.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.fmt===fmt));
+  updateExportPreview();
+}
+function exportSection(){
+  const periodo=h("select",{"aria-label":"Periodo a exportar",onchange:()=>updateExportPreview()});
+  const seg=h("div",{class:"seg",role:"group","aria-label":"Formato de exportación"},
+    [["xlsx","Excel"],["csv","CSV"],["pdf","PDF"]].map(([v,l])=>h("button",{type:"button","data-fmt":v,class:v==="xlsx"?"on":"",onclick:e=>setExpFmt(v,e.currentTarget)},l)));
+  const prev=h("div",{class:"exp-preview"});
+  const el=h("section",{class:"card",id:"exportar"},
+    h("div",{class:"exp-head"},h("div",0,h("h3",0,"Exportar mis registros"),h("p",0,"Elige periodo y formato, luego el destino. El archivo se crea en tu teléfono: tú decides si va a Drive, Correo o iCloud. Nada se sube solo.")),
+      h("span",{class:"exp-badge"},"NUEVO")),
+    h("label",{for:"expPeriodo"},"Periodo"),periodo,
+    h("label",0,"Formato"),seg,prev,
+    h("button",{type:"button",class:"exp-share",onclick:()=>exportarRegistros("share")},"↗  Compartir archivo…"),
+    h("div",{class:"exp-dest"},
+      h("button",{type:"button",class:"drive",onclick:()=>exportarRegistros("drive")},h("b",0,"☁️  Google Drive"),h("small",0,"Compartir → Drive o abrir drive.google.com")),
+      h("button",{type:"button",class:"mail",onclick:()=>exportarRegistros("mail")},h("b",0,"✉️  Correo"),h("small",0,"Compartir → Mail / Gmail con archivo adjunto")),
+      h("button",{type:"button",class:"icloud",onclick:()=>exportarRegistros("icloud")},h("b",0,"🍎  iCloud"),h("small",0,"iPhone: Compartir → Guardar en Archivos → iCloud Drive")),
+      h("button",{type:"button",onclick:()=>exportarRegistros("download")},h("b",0,"⬇️  Solo descargar"),h("small",0,"Guardar en Descargas / Archivos"))),
+    h("div",{class:"exp-hint"},h("b",0,"¿Cómo llega a cada lugar?  "),"Toca un destino y elige en el menú del sistema. Si no ves Drive / Correo / iCloud, pulsa «¿Cómo se hace?» y te guía paso a paso. En PC, se descarga el archivo y luego lo subes a drive.google.com o icloud.com/iclouddrive."),
+    h("div",{class:"two"},
+      h("button",{type:"button",class:"btn",onclick:()=>guiaDestino("drive")},"¿Cómo se hace? Drive"),
+      h("button",{type:"button",class:"btn",onclick:()=>guiaDestino("icloud")},"¿Cómo se hace? iCloud")),
+    h("button",{type:"button",class:"btn full",onclick:()=>guiaDestino("mail")},"¿Cómo se hace? Correo"));
+  EXP_UI={...EXP_UI,periodo,seg,prev,el};
+  periodo.id="expPeriodo";
+  updateExportPreview();
+  return el;
+}
+
 /* ---------- respaldo ---------- */
 function backup(){const f=h("input",{type:"file",accept:"application/json,.json",hidden:true,onchange:e=>{const fl=e.target.files[0];e.target.value="";if(!fl)return;
     if(fl.size>3e6)return toast("Archivo demasiado grande","x");const r=new FileReader();r.onload=()=>{let c=null;try{c=clean(JSON.parse(r.result))}catch(_){}
       if(!c)return toast("Archivo inválido","x");ask("Se importarán "+c.mv.length+" movimientos y "+c.wallets.length+" cuentas. ¿Reemplazar tus datos actuales?",()=>{st=c;persist();render();toast("Respaldo restaurado")},"Reemplazar")};r.onerror=()=>toast("No se pudo leer","x");r.readAsText(fl)}});
-  return h("section",{class:"card bk",style:"margin-top:22px"},h("h3",0,"Respaldo y seguridad"),h("p",0,"El archivo de respaldo contiene todos tus datos sin cifrar: guárdalo solo en lugares de confianza."),
+  return h("section",{class:"card bk",style:"margin-top:22px"},h("h3",0,"Respaldo y seguridad (para restaurar la app)"),h("p",0,"El archivo de respaldo contiene todos tus datos sin cifrar: guárdalo solo en lugares de confianza."),
     h("div",{class:"two"},h("button",{class:"btn",onclick:exportar},"Exportar respaldo"),h("button",{class:"btn",onclick:()=>f.click()},"Importar respaldo")),f,
     h("button",{class:"btn full",onclick:pinSheet},sec()?"Cambiar o quitar PIN":"Crear PIN de bloqueo"),
     h("button",{class:"btn danger full",onclick:()=>ask("¿Borrar TODOS los datos de este dispositivo? No se puede deshacer.",()=>{st=def();persist();render();toast("Datos borrados")},"Borrar todo")},"Borrar todo"))}
-async function exportar(){const txt=JSON.stringify(st),nm="finanzas-ni-respaldo.json";
-  try{const f=new File([txt],nm,{type:"application/json"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"Finanzas NI"});return}}catch(e){if(e&&e.name==="AbortError")return}
-  const u=URL.createObjectURL(new Blob([txt],{type:"application/json"})),a=h("a",{href:u,download:nm});document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500);toast("Descargando respaldo")}
+async function exportar(){const txt=JSON.stringify(st),nm="finanzas-ni-respaldo-"+new Date().toISOString().slice(0,10)+".json";const blob=new Blob([txt],{type:"application/json"});
+  const s=await compartirArchivo(blob,nm);if(s===true||s==="cancelado")return;descargarBlob(blob,nm);toast("Descargando respaldo")}
 
 /* ---------- PIN de bloqueo (PBKDF2 + bloqueo progresivo) ---------- */
 const b64=u=>btoa(String.fromCharCode(...u)),unb=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
@@ -314,5 +533,6 @@ if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))addEventLis
 load();try{if(localStorage.getItem(HIDE)==="1")document.body.classList.add("hide")}catch(e){}
 render();if(sec())lockNow();else $("#app").hidden=false;
 </script>
-</body>
-</html>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script>
+
+</body></html>
